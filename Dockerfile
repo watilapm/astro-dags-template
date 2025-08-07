@@ -1,3 +1,9 @@
+USER root
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    libpq-dev
+USER astro
+
 FROM quay.io/astronomer/astro-runtime:12.6.0
 
 #ENV AIRFLOW__CORE__ENABLE_XCOM_PICKLING=True
