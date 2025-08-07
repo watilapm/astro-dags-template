@@ -12,6 +12,7 @@ import pendulum
 @aql.dataframe(task_id="python_1")
 def python_1_func():
     print("Teste 1")
+
     print("Teste 2")
 
 default_args={
@@ -20,7 +21,7 @@ default_args={
 
 @dag(
     default_args=default_args,
-    schedule="0 0 * * *",
+    schedule="* * * * *",
     start_date=pendulum.from_format("2024-12-17", "YYYY-MM-DD").in_tz("UTC"),
     catchup=True,
     owner_links={
