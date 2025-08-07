@@ -12,8 +12,8 @@ import pendulum
 @aql.dataframe(task_id="python_1")
 def python_1_func():
     print("Teste 1")
-
     print("Teste 2")
+    print("Teste 3")
 
 default_args={
     "owner": "Alex Lopes,Open in Cloud IDE",
@@ -33,3 +33,4 @@ def CoinCap():
     python_1 = python_1_func()
 
 dag_obj = CoinCap()
+
