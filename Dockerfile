@@ -14,7 +14,7 @@ USER astro
 #ENV AIRFLOW__SCHEDULER__DAG_DIR_LIST_INTERVAL=30
 #ENV AIRFLOW__CORE__DAGS_FOLDER=~/airflow/dags
 #RUN apt-get update && apt-get install -y build-essential gcc python3-dev
-#RUN python -m pip install --upgrade pip
+RUN python -m pip install --upgrade pip
 
 
 
