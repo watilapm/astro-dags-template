@@ -14,7 +14,7 @@ from datetime import datetime, timedelta
 from airflow.providers.postgres.hooks.postgres import PostgresHook
 
 
-@aql.dataframe(task_id="python_1")
+@task
 def python_1_func():
     from airflow.operators.python import get_current_context
     
@@ -60,9 +60,9 @@ def python_1_func():
         print("No data available for the specified date range.")
     
     #### Load
-    pg_hook = PostgresHook(postgres_conn_id='postgres')
-    engine = pg_hook.get_sqlalchemy_engine()
-    df.to_sql('bitcoin_history', con=engine, if_exists='append', index=False)
+    # pg_hook = PostgresHook(postgres_conn_id='postgres')
+    # engine = pg_hook.get_sqlalchemy_engine()
+    # df.to_sql('bitcoin_history', con=engine, if_exists='append', index=False)
     
     
 
