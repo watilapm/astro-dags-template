@@ -1,2 +1,2 @@
-astro-sdk-python[postgres,google]==1.5.3
+astro-sdk-python[postgres,google]
 pandas
