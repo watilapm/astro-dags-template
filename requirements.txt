@@ -1,2 +1,1 @@
-astro-sdk-python[postgres,google]
 pandas
