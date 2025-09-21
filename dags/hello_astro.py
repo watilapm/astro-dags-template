@@ -11,10 +11,10 @@ def hello_world():
 
 @dag(
     dag_id='hello_world',
-    start_date=datetime(2023, 1, 1),
+    start_date=datetime(2025, 9, 15),
     schedule='@daily',
     catchup=False,
-    default_args={'owner': 'airflow', 'retries': 1},
+    default_args={'retries': 1},
 )
 def hello_world_dag():
     hello_world_task = hello_world()
@@ -23,5 +23,6 @@ hello_world_dag()
 
 
 dag = hello_astro()
+
 
 
