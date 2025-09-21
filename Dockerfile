@@ -1,4 +1,4 @@
-FROM quay.io/astronomer/astro-runtime:3.0-11
+FROM quay.io/astronomer/astro-runtime:13.2.0
 
 # 2. Switch to the 'root' user to get permissions for installation
 USER root
