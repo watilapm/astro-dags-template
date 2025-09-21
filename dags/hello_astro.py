@@ -19,10 +19,11 @@ def hello_world():
 def hello_world_dag():
     hello_world_task = hello_world()
 
-hello_world_dag()
 
 
-dag = hello_astro()
+
+dag = hello_world_dag()
+
 
 
 
