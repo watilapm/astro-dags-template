@@ -43,36 +43,36 @@ def fetch_and_to_gbq():
     url = "https://api.coingecko.com/api/v3/coins/bitcoin/market_chart/range"
     params = {"vs_currency": "usd", "from": start_s, "to": end_s}
 
-    r = requests.get(url, params=params, timeout=30)
-    r.raise_for_status()
-    payload = r.json()
+    #r = requests.get(url, params=params, timeout=30)
+    #r.raise_for_status()
+    #payload = r.json()
 
-    prices = payload.get("prices", [])
-    caps   = payload.get("market_caps", [])
-    vols   = payload.get("total_volumes", [])
+    #prices = payload.get("prices", [])
+    #caps   = payload.get("market_caps", [])
+    #vols   = payload.get("total_volumes", [])
 
-    if not prices:
-        print("No data returned for the specified window.")
-        return
+    #if not prices:
+    #    print("No data returned for the specified window.")
+    #    return
 
     # Build a tidy DataFrame: time (UTC), price_usd, market_cap_usd, volume_usd
-    df_p = pd.DataFrame(prices, columns=["time_ms", "price_usd"])
-    df_c = pd.DataFrame(caps,   columns=["time_ms", "market_cap_usd"])
-    df_v = pd.DataFrame(vols,   columns=["time_ms", "volume_usd"])
+    #df_p = pd.DataFrame(prices, columns=["time_ms", "price_usd"])
+    #df_c = pd.DataFrame(caps,   columns=["time_ms", "market_cap_usd"])
+    #df_v = pd.DataFrame(vols,   columns=["time_ms", "volume_usd"])
 
-    df = df_p.merge(df_c, on="time_ms", how="outer").merge(df_v, on="time_ms", how="outer")
-    df["time"] = pd.to_datetime(df["time_ms"], unit="ms", utc=True)
-    df.drop(columns=["time_ms"], inplace=True)
-    df.sort_values("time", inplace=True)
+    #df = df_p.merge(df_c, on="time_ms", how="outer").merge(df_v, on="time_ms", how="outer")
+    #df["time"] = pd.to_datetime(df["time_ms"], unit="ms", utc=True)
+    #df.drop(columns=["time_ms"], inplace=True)
+    #df.sort_values("time", inplace=True)
 
     # Preview in logs
-    print(df.head(10).to_string())
+    #print(df.head(10).to_string())
 
     # -------- Load to BigQuery using pandas-gbq --------
     # Get auth credentials from Airflow connection (recommended in Airflow)
     bq_hook = BigQueryHook(gcp_conn_id=GCP_CONN_ID, location=BQ_LOCATION, use_legacy_sql=False)
     credentials = bq_hook.get_credentials()
-
+    print(credentials)
     destination_table = f"{BQ_DATASET}.{BQ_TABLE}"
 
     # Optional explicit schema (helps first-time table creation)
@@ -84,20 +84,20 @@ def fetch_and_to_gbq():
     ]
 
     # Ensure 'time' is a column (not index)
-    if df.index.name == "time":
+    #if df.index.name == "time":
         df = df.reset_index()
 
     # pandas-gbq: append rows; if table doesn't exist, it's created with schema
     # Note: Set 'location' to match your dataset region
-    df.to_gbq(
-        destination_table=destination_table,
-        project_id=GCP_PROJECT,
-        if_exists="append",          # or "replace" / "fail"
-        credentials=credentials,
-        table_schema=table_schema,   # used on first create
-        location=BQ_LOCATION,
-        progress_bar=False,
-    )
+    #df.to_gbq(
+    #    destination_table=destination_table,
+    #    project_id=GCP_PROJECT,
+    #    if_exists="append",          # or "replace" / "fail"
+    #    credentials=credentials,
+    #    table_schema=table_schema,   # used on first create
+    #    location=BQ_LOCATION,
+    #    progress_bar=False,
+    #)
 
     print(f"Loaded {len(df)} rows to {GCP_PROJECT}.{destination_table} (location={BQ_LOCATION}).")
 
