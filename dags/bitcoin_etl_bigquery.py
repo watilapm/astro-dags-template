@@ -72,7 +72,7 @@ def fetch_and_to_gbq():
     # Get auth credentials from Airflow connection (recommended in Airflow)
     bq_hook = BigQueryHook(gcp_conn_id=GCP_CONN_ID, location=BQ_LOCATION, use_legacy_sql=False)
     credentials = bq_hook.get_credentials()
-    print(credentials)
+    print(f"cred: {credentials}")
     destination_table = f"{BQ_DATASET}.{BQ_TABLE}"
 
     # Optional explicit schema (helps first-time table creation)
