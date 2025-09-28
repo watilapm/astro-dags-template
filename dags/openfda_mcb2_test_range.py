@@ -9,7 +9,7 @@ from datetime import date
 # Configurações
 GCP_PROJECT  = "mba-dsml-enap2025"
 BQ_DATASET   = "dataset_fda"
-BQ_TABLE     = "openfda_sildenafil_range_test"
+BQ_TABLE     = "openfda_metformin_range_test"
 BQ_LOCATION  = "US"
 GCP_CONN_ID  = "google_cloud_default"
 USE_POOL     = True
