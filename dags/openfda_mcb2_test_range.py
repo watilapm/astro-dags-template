@@ -16,10 +16,10 @@ USE_POOL     = True
 POOL_NAME    = "openfda_api"
 TEST_START = date(2025, 6, 1)
 TEST_END   = date(2025, 8, 31)
-DRUG_QUERY = 'sildenafil+citrate'
+DRUG_QUERY = 'metformin'
 
 SESSION = requests.Session()
-SESSION.headers.update({"User-Agent": "mda-openfda-etl/1.0 (contato: voce@exemplo.gov.br)"})
+SESSION.headers.update({"User-Agent": "mda-openfda-etl/1.0 (contato: watilapm@gmail.com)"})
 
 def _openfda_get(url: str) -> dict:
     r = SESSION.get(url, timeout=30)
